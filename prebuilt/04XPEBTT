@@ -1,0 +1,4 @@
+#!/system/bin/sh
+#Battery tweak by klozz
+echo "500" > /proc/sys/vm/dirty_expire_ centisecs
+echo "1000" > /proc/sys/vm/dirty_writeback_ centisecs

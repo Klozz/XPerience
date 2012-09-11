@@ -1,0 +1,86 @@
+#!/system/bin/sh
+# Copyright© 2012 LtHuNTer_StepheN
+#
+# Clearing temporary file
+rm -f /cache/*.apk
+rm -f /cache/*.tmp
+rm -f /data/dalvik-cache/*.apk
+rm -f /data/dalvik-cache/*.tmp
+#
+echo "Optimizer: use optimize scheduler as i/o scheduler and decrease latency";
+for i in $BLOCK0 $BLOCK1 $BLOCK2 $BLOCK3 $BLOCK4 $BLOCK5;
+do
+echo 0 > $i/queue/rotational;
+echo 512 > $i/queue/nr_requests;
+echo 1024 > $i/queue/read_ahead_kb;
+echo 1 > $i/queue/iosched/back_seek_penalty;
+echo 1000000000 > $i/queue/iosched/back_seek_max;
+echo 0 > $i/queue/iosched/slice_idle;
+echo 1 > $i/queue/iosched/low_latency;
+echo 1 > $i/queue/iosched/fifo_batch;
+echo 1 > $i/queue/iosched/writes_starved;
+echo 16 > $i/queue/iosched/quantum;
+echo 1 > $i/queue/iosched/rev_penalty;
+echo 1 > $i/queue/rq_affinity;
+echo 0 > $k/queue/iostats;
+echo 128 > $i/queue/max_sectors_kb;
+done
+#
+# Kernel Optimizer
+echo 3 > /proc/sys/vm/page-cluster;
+echo 2048 > /proc/sys/kernel/msgmni;
+echo 64000 > /proc/sys/kernel/msgmax;
+echo 4096 > /proc/sys/kernel/shmmni;
+echo 2097152 > /proc/sys/kernel/shmall;
+echo 268435456 > /proc/sys/kernel/shmmax;
+echo 10 > /proc/sys/fs/lease-break-time;
+echo 500,512000,64,2048 > /proc/sys/kernel/sem;
+echo 5000 > /proc/sys/kernel/threads-max;
+echo 45 > /proc/sys/kernel/hung_task_timeout_secs;
+echo 0 > /proc/sys/kernel/sched_child_runs_first;
+echo 6 > /proc/sys/kernel/rr_interval;
+echo 75 > /proc/sys/kernel/iso_cpu;
+#
+
+#
+# VM Management
+echo 4772 > /proc/sys/vm/min_free_kbytes;
+echo 0 > /proc/sys/vm/oom_kill_allocating_task;
+echo 0 > /proc/sys/vm/panic_on_oom;
+echo 0 > /proc/sys/kernel/panic
+echo 1 > /proc/sys/kernel/panic_on_oops
+echo 0 > /proc/sys/vm/laptop_mode;
+echo 20 > /proc/sys/vm/vfs_cache_pressure;
+echo 95 > /proc/sys/vm/dirty_ratio;
+echo 60 > /proc/sys/vm/dirty_background_ratio;
+echo 1 > /proc/sys/vm/overcommit_memory;
+echo 4 > /proc/sys/vm/min_free_order_shift;
+echo 0 > /proc/sys/vm/block_dump;
+echo 1 > /proc/sys/vm/oom_dump_tasks;
+#
+# Battery Tweak
+echo 500 > /proc/sys/vm/dirty_writeback_centisecs;
+echo 1000 > /proc/sys/vm/dirty_expire_centisecs;
+#
+# Sleeper
+mount -t debugfs none /sys/kernel/debug
+#echo "now disabling GENTLE_FAIR_SLEEPERS"
+echo "NO_GENTLE_FAIR_SLEEPERS" > /sys/kernel/debug/sched_features;
+#cat /sys/kernel/debug/sched_features
+#echo "done"
+#echo ""
+#echo "now disabling FAIR_SLEEPERS"
+echo "NO_NEW_FAIR_SLEEPERS" > /sys/kernel/debug/sched_features;
+#cat /sys/kernel/debug/sched_features
+#echo "done"
+#echo "now disabling NORMALIZED_SLEEPERS"
+echo "NO_NORMALIZED_SLEEPER" > /sys/kernel/debug/sched_features;
+#cat /sys/kernel/debug/sched_features
+#echo "done"
+#
+# Touch Screen Sensitive
+echo 7035 > /sys/class/touch/switch/set_touchscreen;
+echo 8002 > /sys/class/touch/switch/set_touchscreen;
+echo 11000 > /sys/class/touch/switch/set_touchscreen;
+echo 13060 > /sys/class/touch/switch/set_touchscreen;
+echo 14005 > /sys/class/touch/switch/set_touchscreen;

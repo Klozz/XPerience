@@ -1,0 +1,114 @@
+# =================================================================
+# =================================================================
+# Governor Tweaks
+# By klozz TeamMEX@Xda-Developers
+# for xperience roms
+# =================================================================
+# =================================================================
+
+# ==========
+# Ondemand
+# ==========
+	if [ -e /sys/devices/system/cpu/cpu0/cpufreq/ondemand/up_threshold ]; then
+		echo "85" > /sys/devices/system/cpu/cpu0/cpufreq/ondemand/up_threshold;
+	fi;
+	
+	if [ -e /sys/devices/system/cpu/cpu1/cpufreq/ondemand/up_threshold ]; then
+		echo "85" > /sys/devices/system/cpu/cpu1/cpufreq/ondemand/up_threshold;
+	fi;
+	
+	if [ -e /sys/devices/system/cpu/cpufreq/ondemand/up_threshold ]; then
+		echo "85" > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold;
+	fi;
+	
+	
+# ===========
+# OndemandX
+# ===========
+	if [ -e /sys/devices/system/cpu/cpu0/cpufreq/ondemandx/up_threshold ]; then
+		echo "85" > /sys/devices/system/cpu/cpu0/cpufreq/ondemandx/up_threshold;
+	fi;
+	
+	if [ -e /sys/devices/system/cpu/cpu1/cpufreq/ondemandx/up_threshold ]; then
+		echo "85" > /sys/devices/system/cpu/cpu1/cpufreq/ondemandx/up_threshold;
+	fi;
+	
+	if [ -e /sys/devices/system/cpu/cpufreq/ondemandx/up_threshold ]; then
+		echo "85" > /sys/devices/system/cpu/cpufreq/ondemandx/up_threshold;
+	fi;
+
+
+# =============
+# Conservative 
+# =============
+
+	if [ -e /sys/devices/system/cpu/cpu0/cpufreq/conservative/up_threshold ]; then
+		echo "85" > /sys/devices/system/cpu/cpu0/cpufreq/conservative/up_threshold;
+		echo "75" > /sys/devices/system/cpu/cpu0/cpufreq/conservative/down_threshold;
+        echo "100" > /sys/devices/system/cpu/cpu0/cpufreq/conservative/freq_step;
+	fi;	
+	
+	if [ -e /sys/devices/system/cpu/cpu1/cpufreq/conservative/up_threshold ]; then
+		echo "85" > /sys/devices/system/cpu/cpu1/cpufreq/conservative/up_threshold;
+		echo "75" > /sys/devices/system/cpu/cpu1/cpufreq/conservative/down_threshold;
+        echo "100" > /sys/devices/system/cpu/cpu1/cpufreq/conservative/freq_step;
+	fi;
+	
+	if [ -e /sys/devices/system/cpu/cpufreq/conservative/up_threshold ]; then
+		echo "85" > /sys/devices/system/cpu/cpufreq/conservative/up_threshold;
+		echo "75" > /sys/devices/system/cpu/cpufreq/conservative/down_threshold;
+        echo "100" > /sys/devices/system/cpu/cpufreq/conservative/freq_step;
+	fi;
+
+
+# ============
+# lulzactive 
+# ============
+
+	if [ -e /sys/devices/system/cpu/cpufreq/lulzactive/inc_cpu_load ]; then
+
+		echo "85" > /sys/devices/system/cpu/cpufreq/lulzactive/inc_cpu_load;
+		if [ "`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq`" -eq 200000 ] && [ "`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq`" -eq 1200000 ]; then
+			echo "4" > /sys/devices/system/cpu/cpufreq/lulzactive/pump_up_step;
+			
+		elif [ "`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq`" -eq 200000 ] && [ "`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq`" -eq 1400000 ]; then 
+			echo "5" > /sys/devices/system/cpu/cpufreq/lulzactive/pump_up_step;
+		elif [ "`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq`" -eq 200000 ] && [ "`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq`" -eq 1600000 ]; then 
+			echo "6" > /sys/devices/system/cpu/cpufreq/lulzactive/pump_up_step;
+		elif [ "`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq`" -eq 100000 ] && [ "`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq`" -eq 1200000 ]; then 
+			echo "5" > /sys/devices/system/cpu/cpufreq/lulzactive/pump_up_step;
+		elif [ "`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq`" -eq 100000 ] && [ "`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq`" -eq 1400000 ]; then 
+			echo "6" > /sys/devices/system/cpu/cpufreq/lulzactive/pump_up_step;
+		elif [ "`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq`" -eq 100000 ] && [ "`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq`" -eq 1600000 ]; then 
+			echo "7" > /sys/devices/system/cpu/cpufreq/lulzactive/pump_up_step;
+		elif [ "`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq`" -eq 100000 ] && [ "`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq`" -eq 800000 ]; then 
+			echo "3" > /sys/devices/system/cpu/cpufreq/lulzactive/pump_up_step;
+		elif [ "`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq`" -eq 100000 ] && [ "`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq`" -eq 1000000 ]; then 
+			echo "4" > /sys/devices/system/cpu/cpufreq/lulzactive/pump_up_step;
+		elif [ "`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq`" -eq 200000 ] && [ "`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq`" -eq 800000 ]; then 
+			echo "2" > /sys/devices/system/cpu/cpufreq/lulzactive/pump_up_step;
+		elif [ "`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq`" -eq 200000 ] && [ "`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq`" -eq 1000000 ]; then 
+			echo "3" > /sys/devices/system/cpu/cpufreq/lulzactive/pump_up_step;
+		fi;
+		echo "1" > /sys/devices/system/cpu/cpufreq/lulzactive/pump_down_step;
+		echo "4" > /sys/devices/system/cpu/cpufreq/lulzactive/screen_off_min_step;
+	fi;
+# ============
+# smartassV2 
+# ============
+
+	if [ -e /sys/devices/system/cpu/cpufreq/smartass/awake_ideal_freq ]; then
+
+		echo "800000" > /sys/devices/system/cpu/cpufreq/smartass/awake_ideal_freq;
+		if [ "`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq`" -eq 200000 ]; then
+			echo "200000" > /sys/devices/system/cpu/cpufreq/smartass/sleep_ideal_freq;
+		else 
+			echo "100000" > /sys/devices/system/cpu/cpufreq/smartass/sleep_ideal_freq;
+		fi;
+		
+		echo "800000" > /sys/devices/system/cpu/cpufreq/smartass/sleep_wakeup_freq;
+		echo "85" > /sys/devices/system/cpu/cpufreq/smartass/max_cpu_load;
+		echo "75" > /sys/devices/system/cpu/cpufreq/smartass/min_cpu_load;
+		echo "200000" > /sys/devices/system/cpu/cpufreq/smartass/ramp_down_step;
+		echo "0" > /sys/devices/system/cpu/cpufreq/smartass/ramp_up_step;
+	fi;

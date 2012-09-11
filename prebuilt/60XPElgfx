@@ -1,0 +1,85 @@
+#!/system/bin/sh
+# optimized for use only on XPE ROMS
+#By klozz TeamMEX@xda-developers
+# =========
+# remove lag when answering phone calls
+# =========
+MAX_PHONE() 
+{
+pidphone=`pidof com.android.phone`;
+if [ $pidphone ];
+then
+	/system/xbin/echo "-17" > /proc/$pidphone/oom_adj;
+	renice -20 $pidphone;
+	if [ $MAX_APP -eq "1" ];
+	then
+		exit;
+	else
+		MAX_APP_STARTER;
+		MAX_APP=1;
+		exit;
+	fi;
+else
+	sleep 3;
+	MAX_PHONE;
+fi;
+}
+	
+# =========
+# remove lag from su (root)
+# =========
+MAX_SU()
+{
+pidsu=`pidof com.noshufou.android.su`;
+if [ $pidsu ];
+then
+	/system/xbin/echo "-17" > /proc/$pidsu/oom_adj;
+	renice -20 $pidsu;
+	exit;
+else
+	sleep 3;
+	MAX_SU;
+fi;
+}
+
+# =========
+# Background process to optimize process
+# =========
+MAX_APP_STARTER()
+{
+if [ $LOCK_APP_IN_MEMORY_ENABLED -eq "1" ];
+then
+	if [ $LOCK_APP_SU -eq "1" ];
+	then
+		(while [ 1 ];
+		do
+			sleep 5;
+			MAX_SU;
+		done &);
+	fi;
+	if [ $LOCK_APP_DIALER -eq "1" ];
+	then
+		(while [ 1 ];
+		do
+			sleep 3;
+			MAX_DIALER;
+		done &);
+	fi;
+	exit;
+else
+	(while [ 1 ];
+	do
+		sleep 3;
+		MAX_APP_STARTER;
+	done &);
+fi;
+}
+
+if [ $LOCK_APP_IN_MEMORY_ENABLED -eq "1" ];
+then
+	(while [ 1 ];
+	do
+		sleep 3;
+		MAX_PHONE;
+	done &);
+fi;

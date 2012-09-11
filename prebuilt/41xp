@@ -1,0 +1,9 @@
+#!/system/bin/sh
+# by klozz TeamMEX@XDA
+#
+# Read Ahead Tweak
+
+if [ -e /sys/devices/virtual/bdi/default/read_ahead_kb ];
+  then
+    echo "256" > /sys/devices/virtual/bdi/default/read_ahead_kb;
+fi;

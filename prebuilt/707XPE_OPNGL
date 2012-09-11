@@ -1,0 +1,5 @@
+# Sbin/sh
+# optimized VM to opngl
+#By klozz TeamMEX@xda-developers.
+
+sysctl -w vm.min_free_kbytes=16384
