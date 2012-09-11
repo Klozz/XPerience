@@ -6,7 +6,7 @@ $(call inherit-product, device/common/gps/gps_eu_supl.mk)
 $(call inherit-product-if-exists, vendor/semc/shakira/device_shakira-vendor.mk)
 
 
-# Discard inherited values and use our own instead.
+# Discard inherited values and use our own instead .
 PRODUCT_NAME := E15a
 PRODUCT_DEVICE := shakira
 PRODUCT_MODEL := E15a
